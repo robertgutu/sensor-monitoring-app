@@ -9,6 +9,7 @@ function Header(){
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
               <a className="nav-link active" href="/">Home</a>
+              <a className="nav-link active" href="/predictions">Predictions</a>
               <a className="nav-link active" href="/map">Map</a>
             </div>
           </div>

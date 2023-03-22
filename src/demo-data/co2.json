@@ -1,0 +1,44 @@
+{
+  "CO2": [
+    {
+      "timestamp": 1647436800,
+      "value": 413.59
+    },
+    {
+      "timestamp": 1647523200,
+      "value": 414.11
+    },
+    {
+      "timestamp": 1647609600,
+      "value": 414.56
+    },
+    {
+      "timestamp": 1647696000,
+      "value": 415.02
+    },
+    {
+      "timestamp": 1647782400,
+      "value": 415.46
+    },
+    {
+      "timestamp": 1647868800,
+      "value": 415.87
+    },
+    {
+      "timestamp": 1647955200,
+      "value": 416.23
+    },
+    {
+      "timestamp": 1648041600,
+      "value": 416.57
+    },
+    {
+      "timestamp": 1648128000,
+      "value": 416.87
+    },
+    {
+      "timestamp": 1648214400,
+      "value": 417.13
+    }
+  ]
+}

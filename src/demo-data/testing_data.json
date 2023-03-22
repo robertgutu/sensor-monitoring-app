@@ -1,0 +1,74 @@
+{
+    "data": [
+      {
+        "timestamp": 1679466150,
+        "temperature": 24.5,
+        "humidity": 71.2
+      },
+      {
+        "timestamp": 1679552550,
+        "temperature": 23.8,
+        "humidity": 70.9
+      },
+      {
+        "timestamp": 1679638950,
+        "temperature": 23.1,
+        "humidity": 69.8
+      },
+      {
+        "timestamp": 1679725350,
+        "temperature": 22.4,
+        "humidity": 68.6
+      },
+      {
+        "timestamp": 1679811750,
+        "temperature": 21.8,
+        "humidity": 67.3
+      },
+      {
+        "timestamp": 1679898150,
+        "temperature": 21.2,
+        "humidity": 66.1
+      },
+      {
+        "timestamp": 1679984550,
+        "temperature": 20.5,
+        "humidity": 64.9
+      },
+      {
+        "timestamp": 1680070950,
+        "temperature": 19.9,
+        "humidity": 63.6
+      },
+      {
+        "timestamp": 1680157350,
+        "temperature": 19.2,
+        "humidity": 62.4
+      },
+      {
+        "timestamp": 1680243750,
+        "temperature": 18.6,
+        "humidity": 61.1
+      },
+      {
+        "timestamp": 1680330150,
+        "temperature": 18.0,
+        "humidity": 59.9
+      },
+      {
+        "timestamp": 1680416550,
+        "temperature": 17.4,
+        "humidity": 58.7
+      },
+      {
+        "timestamp": 1680502950,
+        "temperature": 16.8,
+        "humidity": 57.4
+      },
+      {
+        "timestamp": 1680589350,
+        "temperature": 16.3,
+        "humidity": 56.2
+      }
+    ]
+}
