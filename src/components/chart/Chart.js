@@ -64,7 +64,7 @@ function Chart(props){
 
       console.log("date filtrate", filtered_data)
       filtered_data.map(el => {
-        el.timestamp = parseInt(el.timestamp);
+        el.timestamp = parseInt(el.timestamp*1000);
       })
       setData(filtered_data)
     }
@@ -72,7 +72,7 @@ function Chart(props){
   },[props.measured_data,props.sensor_id])
 
   const formatXAxis = tickFormat => {
-    return moment(tickFormat).format('Do MMM');
+    return moment(tickFormat).format('DD MMM');
   }
 
     return (
@@ -96,7 +96,7 @@ function Chart(props){
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="timestamp" tickFormatter={formatXAxis}/>
             <YAxis />
-            <Tooltip />
+            <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}/>
             <Legend />
             <Line type="monotone" dataKey="humidity" stroke="#8884d8" activeDot={{ r: 8 }} />
             <Line type="monotone" dataKey="temperature" stroke="#82ca9d" activeDot={{ r: 8 }}/>
