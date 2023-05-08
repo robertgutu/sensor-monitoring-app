@@ -58,12 +58,14 @@ function Chart(props){
       console.log("chart measured data",props.measured_data)
       console.log("chart sensor id",props.sensor_id)
 
-      var filtered_data = props.measured_data.filter(obj => {
-        return obj.sensor_id === 1
-        /* return obj.sensor_id === props.sensor_id */
+      const filtered_data = props.measured_data.filter(obj => {
+        return obj.node_id === props.sensor_id
       })
 
       console.log("date filtrate", filtered_data)
+      filtered_data.map(el => {
+        el.timestamp = parseInt(el.timestamp);
+      })
       setData(filtered_data)
     }
 
