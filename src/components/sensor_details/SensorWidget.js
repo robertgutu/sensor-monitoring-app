@@ -4,10 +4,30 @@ import './SensorWidget.css'
 
 function SensorWidget(props){
 
+    const [nodeID,setNodeID] = useState(null);
+    const [temp,setTemp] = useState(0);
+    const [hum,setHum] = useState(0);
+
+    useEffect(() => {
+        console.log("props.data",props.data)
+        if(props.data.id && props.data.id !== nodeID){
+            setNodeID(props.data.id)
+        }
+
+        if(props.data.temperature && props.data.temperature !== temp){
+            setTemp(props.data.temperature)
+        }
+
+        if(props.data.humidity && props.data.humidity !== hum){
+            setHum(props.data.humidity)
+        }
+
+    },[props.data])
+
     return(
         <div className="card widget-card">
             <div className="card-header widget-header">
-                {props.data.name} - REALTIME VALUES
+                REALTIME VALUES FOR NODE {nodeID}
             </div>
             <div className="card-body widget-content">
                 <div className="row">
@@ -15,7 +35,8 @@ function SensorWidget(props){
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={3} 
                         formatTextValue={value => value+' C'}
-                        percent={23.5/100} 
+                        percent={temp/100} 
+                        animate={false}
                         />
                         <p className="meter-name">Temperature</p>
                     </div>
@@ -23,7 +44,8 @@ function SensorWidget(props){
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={20} 
                         formatTextValue={value => value+' %'}
-                        percent={props.data.last_value / 100} 
+                        percent={hum/100} 
+                        animate={false}
                         />
                         <p className="meter-name">Humidity</p>
                     </div>

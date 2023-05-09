@@ -1,9 +1,12 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp} from "firebase/app";
+import 'firebase/database';
 import {getFirestore} from "@firebase/firestore";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6FsVh376FKyF77ER3p3-qw-l1AmvJFR4",
   authDomain: "monitoringapi-f8032.firebaseapp.com",
+  databaseURL: "https://monitoringapi-f8032-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "monitoringapi-f8032",
   storageBucket: "monitoringapi-f8032.appspot.com",
   messagingSenderId: "327803581857",
@@ -13,4 +16,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+//firestore
 export const db =getFirestore(app);
+//real time db
+export const rtdb = getDatabase(app);
+
