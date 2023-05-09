@@ -70,14 +70,6 @@ function Home(){
         fetchMeasurements()
     },[])
 
-    /* useEffect(() => {
-        const interval = setInterval(() => {
-          console.log('This will run every second!');
-          fetchRTData()
-        }, 7000);
-        return () => clearInterval(interval);
-      }, []); */
-
     if(isDataLoaded && isRealtimeDataLoaded){
         return(
             <div className="container">
