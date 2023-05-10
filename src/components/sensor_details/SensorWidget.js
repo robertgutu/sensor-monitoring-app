@@ -9,20 +9,26 @@ function SensorWidget(props){
     const [hum,setHum] = useState(0);
 
     useEffect(() => {
-        console.log("props.data",props.data)
-        if(props.data.id && props.data.id !== nodeID){
-            setNodeID(props.data.id)
-        }
+        setNodeID(props.data.id)
+    },[props.data.id ])
+
+    useEffect(() => {
 
         if(props.data.temperature && props.data.temperature !== temp){
             setTemp(props.data.temperature)
         }
 
+    },[props.data.temperature])
+
+    useEffect(() => {
+
         if(props.data.humidity && props.data.humidity !== hum){
             setHum(props.data.humidity)
         }
 
-    },[props.data])
+    },[props.humidity])
+
+    console.log("NODEID", nodeID)
 
     return(
         <div className="card widget-card">

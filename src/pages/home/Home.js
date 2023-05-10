@@ -87,10 +87,6 @@ function Home(){
                             </div>
                         )
                     })}
-                    
-                    <div className="test">
-                        {JSON.stringify(testData)}
-                    </div>
                 
             </div>
             )
