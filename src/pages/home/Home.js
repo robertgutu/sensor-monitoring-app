@@ -6,6 +6,7 @@ import { collection,getDocs } from 'firebase/firestore';
 import {ref, onValue} from 'firebase/database'
 import SensorWidget from "../../components/sensor_details/SensorWidget.js";
 import axios from 'axios';
+import NodeDetails from "../../components/nodeDetails/NodeDetails";
 
 function Home(){
 
@@ -72,16 +73,19 @@ function Home(){
 
     if(isDataLoaded && isRealtimeDataLoaded){
         return(
-            <div className="container">
+            <div className="containerCustom">
                 
                     {realtimeData.map( node => {
                         return(
-                            <div className="row custom-row">
-                                <div className="col-4">
+                            <div className="row custom-row underlineCustom">
+                                <div className="col-2">
+                                    <NodeDetails node={node}/>
+                                </div>
+                                <div className="col-3">
                                     <SensorWidget data={node}/>
                             
                                 </div>
-                                <div className="col-8">
+                                <div className="col-7">
                                     <Chart measured_data={measuredData} sensor_id={node.id}/>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 }
 
 .widget-header{
-    background-color: #589bff !important; 
+    background-color: #012A4A !important; 
     border: 0px solid !important;
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
@@ -13,8 +13,8 @@
 }
 
 .widget-content{
-    border: 2px solid #589bff ;
-    background-color: #9dc4ff !important;
+    border: 2px solid #012A4A ;
+    background-color: #012A4A !important;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     font-size:smaller !important;
@@ -23,7 +23,7 @@
 }
 
 .widget-meter{
-    color: black !important;
+    color: #012A4A !important;
 }
 
 .meterCol{

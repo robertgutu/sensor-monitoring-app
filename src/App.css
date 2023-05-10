@@ -1,0 +1,28 @@
+.card{
+    border:0px !important;
+    height: 100% !important;
+}
+
+.chart-header{
+    background-color: #012A4A !important; 
+    border: 0px solid !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    font-size:18px !important; 
+    color: white 
+}
+
+.chart-content{
+    border: 2px solid #012A4A ;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-size:smaller !important;
+    padding: 10px !important;
+    background-color: #012A4A !important;
+    color: white;
+    
+}
+
+.underlineCustom{
+    border-bottom: 5px solid #012A4A ;
+}

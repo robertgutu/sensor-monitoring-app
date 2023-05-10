@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart,BarChart, Bar,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Chart.css'
 import moment from 'moment';
 
@@ -94,12 +94,14 @@ function Chart(props){
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" tickFormatter={formatXAxis}/>
-            <YAxis />
-            <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}/>
+            <XAxis dataKey="timestamp" tickFormatter={formatXAxis} stroke='white'/>
+            <YAxis stroke='white'/>
+            <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}
+              contentStyle={{backgroundColor: '#014F86'}}
+            />
             <Legend />
-            <Line type="monotone" dataKey="humidity" stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="temperature" stroke="#82ca9d" activeDot={{ r: 8 }}/>
+            <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
           </LineChart>
         </ResponsiveContainer>
       </div>
