@@ -78,7 +78,7 @@ function Chart(props){
     return (
       <div className="card">
       <div className="card-header chart-header">
-        Measured values for Sensor #{props.sensor_id}
+        Measured values for {props.node.name} (ID:{props.node.id})
       </div>
       <div className="card-body chart-content">
         <ResponsiveContainer width="100%" height={200}>

@@ -4,13 +4,13 @@ import './SensorWidget.css'
 
 function SensorWidget(props){
 
-    const [nodeID,setNodeID] = useState(null);
+    const [nodeName,setNodeName] = useState('');
     const [temp,setTemp] = useState(0);
     const [hum,setHum] = useState(0);
 
     useEffect(() => {
-        setNodeID(props.data.id)
-    },[props.data.id ])
+        setNodeName(props.data.name)
+    },[props.data.name ])
 
     useEffect(() => {
 
@@ -28,16 +28,14 @@ function SensorWidget(props){
 
     },[props.humidity])
 
-    console.log("NODEID", nodeID)
-
     return(
         <div className="card widget-card">
             <div className="card-header widget-header">
-                REALTIME VALUES FOR NODE {nodeID}
+                Realtime values for {nodeName}
             </div>
             <div className="card-body widget-content">
                 <div className="row">
-                    <div className="col-6 meterCol">
+                    <div className="col-4 meterCol">
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={3} 
                         formatTextValue={value => value+' C'}
@@ -46,7 +44,7 @@ function SensorWidget(props){
                         />
                         <p className="meter-name">Temperature</p>
                     </div>
-                    <div className="col-6 meterCol">
+                    <div className="col-4 meterCol">
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={20} 
                         formatTextValue={value => value+' %'}
@@ -54,6 +52,15 @@ function SensorWidget(props){
                         animate={false}
                         />
                         <p className="meter-name">Humidity</p>
+                    </div>
+                    <div className="col-4 meterCol">
+                        <GaugeChart className="widget-meter" id="gauge-chart2" 
+                        nrOfLevels={20} 
+                        formatTextValue={value => value+' %'}
+                        percent={hum/100} 
+                        animate={false}
+                        />
+                        <p className="meter-name">Air</p>
                     </div>
                 </div>
                 

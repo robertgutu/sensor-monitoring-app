@@ -78,15 +78,15 @@ function Home(){
                     {realtimeData.map( node => {
                         return(
                             <div className="row custom-row underlineCustom">
-                                <div className="col-2">
+                                <div className="col-4 col-xl-2">
                                     <NodeDetails node={node}/>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-8 col-xl-4">
                                     <SensorWidget data={node}/>
                             
                                 </div>
-                                <div className="col-7">
-                                    <Chart measured_data={measuredData} sensor_id={node.id}/>
+                                <div className="col-12 col-xl-6">
+                                    <Chart measured_data={measuredData} node={node} sensor_id={node.id}/>
                                 </div>
                             </div>
                         )
