@@ -1,5 +1,4 @@
 import * as tf from '@tensorflow/tfjs';
-import moment from 'moment';
 
 export const CO2Predictions = (co2Data) => {
 
@@ -38,7 +37,7 @@ train().then(() => {
     console.log('CO2 Predictions for the next 7 days:');
     predictionTensor.data().then(data => {
       for (let i = 0; i < 7; i++) {
-        console.log(parseInt(moment(predictionDates[i]).format("x")), data[i]);
+        console.log(predictionDates[i].toISOString(), data[i]);
       }
     });
 });

@@ -1,13 +1,13 @@
 import * as tf from '@tensorflow/tfjs';
 import moment from 'moment';
 
-export const CO2Predictions = (co2Data) => {
+export function predictHumidity(humData){
 
 // Convert the timestamps to Date objects
-const dates = co2Data.map(d => new Date(d.timestamp * 1000));
+const dates = humData.map(d => new Date(d.timestamp));
 
 // Convert the CO2 values to a tensor
-const co2Tensor = tf.tensor1d(co2Data.map(d => d.value));
+const co2Tensor = tf.tensor1d(humData.map(d => d.humidity));
 
 // Define the model architecture
 const model = tf.sequential();
@@ -23,6 +23,8 @@ const train = async () => {
   await model.fit(co2Tensor, co2Tensor, {epochs: 200});
 };
 
+const newData = []
+
 train().then(() => {
     const predictionDates = [];
     for (let i = 1; i <= 7; i++) {
@@ -35,11 +37,19 @@ train().then(() => {
     const predictionTensor = model.predict(co2TensorReshaped.concat(tf.zeros([7, 1])));
     
     // Print the predictions
-    console.log('CO2 Predictions for the next 7 days:');
+    
     predictionTensor.data().then(data => {
       for (let i = 0; i < 7; i++) {
-        console.log(parseInt(moment(predictionDates[i]).format("x")), data[i]);
+        //console.log(predictionDates[i].toISOString(), data[i]);
+        newData.push({
+            "timestamp": parseInt(moment(predictionDates[i]).format("x")),
+            "predicted_humidity": data[i]
+        })
       }
     });
+
 });
+
+return newData;
+
 }

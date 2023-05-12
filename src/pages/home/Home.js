@@ -47,24 +47,14 @@ function Home(){
     const fetchMeasurements = async () => {
         const fetched_data = await getDocs(measurementsReference)
         .then((data) => {
-            console.log("measured_data",data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+            const temp_data = data.docs.map((doc) => ({...doc.data(), id: doc.id}))
+            console.log("measured_data",temp_data)
             setMeasuredData(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         }).finally(() => {
             setIsDataLoaded(true)
         })
         
     }
-
-    /* const testFetchServer = () => {
-        axios.get(`http://127.0.0.1:5000/measured_data`)
-        .then(res => {
-            console.log("res from Flask:",res);
-            setTestData(res.data)
-        })
-        .catch(err => {
-            console.error(err)
-        })
-    } */
 
     useEffect(() => {
         fetchRTData()
@@ -76,8 +66,9 @@ function Home(){
             <div className="containerCustom">
                 
                     {realtimeData.map( node => {
+                        if(node.id === 0)
                         return(
-                            <div className="row custom-row underlineCustom">
+                            <div key={node.id} className="row custom-row underlineCustom">
                                 <div className="col-4 col-xl-2">
                                     <NodeDetails node={node}/>
                                 </div>
@@ -86,7 +77,7 @@ function Home(){
                             
                                 </div>
                                 <div className="col-12 col-xl-6">
-                                    <Chart measured_data={measuredData} node={node} sensor_id={node.id}/>
+                                    <Chart measured_data={measuredData} node={node} />
                                 </div>
                             </div>
                         )
