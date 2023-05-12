@@ -66,7 +66,6 @@ function Home(){
             <div className="containerCustom">
                 
                     {realtimeData.map( node => {
-                        if(node.id === 0)
                         return(
                             <div key={node.id} className="row custom-row underlineCustom">
                                 <div className="col-4 col-xl-2">
