@@ -1,0 +1,9 @@
+.nodeTitle{
+    color:white;
+    background-color: #012A4A !important;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 12px !important;
+    text-align: center;
+    font-size:18px;
+}
