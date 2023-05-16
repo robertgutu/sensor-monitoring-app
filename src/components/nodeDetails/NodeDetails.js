@@ -9,7 +9,7 @@ const NodeDetails = (props) => {
         <div className="card-header chart-header">
             {props.node.name}
         </div>
-        <div className="card-body chart-content">
+        <div className="card-body chart-content customBody">
             <p>Node ID: {props.node.id}</p>
             <p>Latitide: {props.node.lat}</p>
             <p>Longitude: {props.node.lon}</p>

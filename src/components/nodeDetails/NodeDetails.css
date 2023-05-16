@@ -3,3 +3,7 @@
     height: 100%;
     border-radius: 12px;
 }
+
+.customBody{
+    font-size: 16px !important;
+}

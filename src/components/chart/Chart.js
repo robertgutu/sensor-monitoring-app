@@ -15,7 +15,9 @@ function Chart(props){
   const api = axios.create({
     baseURL:"http://127.0.0.1:5000/",
     headers:{
-      "Content-Type": "application/json"
+      "Access-Control-Allow-Headers" : "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
     }
   })
 
@@ -35,9 +37,9 @@ function Chart(props){
       
       console.log("filtered_data",filtered_data)
       testFetchServer(filtered_data)
-
+      fetchTensorflowPrediction(filtered_data)
+      //fetchProphetPredict(filtered_data)
       setData(filtered_data)
-      //setPredictedData(predicted_data)
     }
 
   },[props.measured_data,props.node])
@@ -50,7 +52,7 @@ function Chart(props){
   //console.log("[].concat(data,predictedData)",chartData)
 
   const testFetchServer = (data) => {
-        api.post(`predict_humidity`,data)
+        api.post(`predict_linear`,data)
         .then(res => {
             console.log("res from Flask:",res);
             setPredictedData(res.data.predictions)
@@ -61,7 +63,27 @@ function Chart(props){
         })
   } 
 
-    console.log("predictedData",predictedData)
+  const fetchTensorflowPrediction = (data) => {
+    api.post(`predict_humidity_prophet`,data)
+    .then(res => {
+        console.log("res from Flask predict_humidity_prophet:",res);
+    })
+    .catch(err => {
+        console.error(err)
+    })
+} 
+
+const fetchProphetPredict = (data) => {
+  api.post(`predict_prophet`,data)
+  .then(res => {
+      console.log("res from Flask predict_prophet:",res);
+  })
+  .catch(err => {
+      console.error(err)
+  })
+} 
+
+    //console.log("predictedData",predictedData)
 
     if(!isPredictedDataLoaded){
       return(<div></div>)
@@ -94,13 +116,13 @@ function Chart(props){
               />
               <YAxis stroke='white'/>
               <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}
-                contentStyle={{backgroundColor: '#014F86'}}
+                contentStyle={{backgroundColor: '#014F86',fontSize: "16px"}}
               />
               <Legend />
               <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
               <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
               <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="predicted_temperature" stroke="blue" strokeWidth={3} activeDot={{ r: 8 }}/>
+              <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" strokeWidth={3} activeDot={{ r: 8 }}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
