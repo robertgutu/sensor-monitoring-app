@@ -11,6 +11,7 @@ function Header(){
               <a className="nav-link active" href="/">Home</a>
               <a className="nav-link active" href="/predictions">Predictions</a>
               <a className="nav-link active" href="/map">Map</a>
+              <a className="nav-link active" href="/add-node">Add node</a>
             </div>
           </div>
         </div>
