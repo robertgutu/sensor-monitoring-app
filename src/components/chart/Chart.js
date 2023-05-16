@@ -9,17 +9,7 @@ import axios from 'axios';
 function Chart(props){
 
   const [data,setData] = useState([])
-  const [predictedData,setPredictedData] = useState([]);
-  const [isPredictedDataLoaded,setIsPredictedDataLoaded] = useState(false)
-
-  const api = axios.create({
-    baseURL:"http://127.0.0.1:5000/",
-    headers:{
-      "Access-Control-Allow-Headers" : "Content-Type",
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    }
-  })
+  const [isDataLoaded,setIsDataLoaded] = useState(false)
 
   useEffect(() => {
 
@@ -35,11 +25,9 @@ function Chart(props){
         el.timestamp = parseInt(el.timestamp)*1000;
       })
       
-      console.log("filtered_data",filtered_data)
-      testFetchServer(filtered_data)
-      fetchTensorflowPrediction(filtered_data)
-      //fetchProphetPredict(filtered_data)
+      //console.log("filtered_data",filtered_data)
       setData(filtered_data)
+      setIsDataLoaded(true)
     }
 
   },[props.measured_data,props.node])
@@ -48,44 +36,10 @@ function Chart(props){
     return moment(tickFormat).format('DD MMM');
   }
 
-  //const chartData = data.concat(predictedData)
-  //console.log("[].concat(data,predictedData)",chartData)
-
-  const testFetchServer = (data) => {
-        api.post(`predict_linear`,data)
-        .then(res => {
-            console.log("res from Flask:",res);
-            setPredictedData(res.data.predictions)
-            setIsPredictedDataLoaded(true)
-        })
-        .catch(err => {
-            console.error(err)
-        })
-  } 
-
-  const fetchTensorflowPrediction = (data) => {
-    api.post(`predict_humidity_prophet`,data)
-    .then(res => {
-        console.log("res from Flask predict_humidity_prophet:",res);
-    })
-    .catch(err => {
-        console.error(err)
-    })
-} 
-
-const fetchProphetPredict = (data) => {
-  api.post(`predict_prophet`,data)
-  .then(res => {
-      console.log("res from Flask predict_prophet:",res);
-  })
-  .catch(err => {
-      console.error(err)
-  })
-} 
 
     //console.log("predictedData",predictedData)
 
-    if(!isPredictedDataLoaded){
+    if(!isDataLoaded){
       return(<div></div>)
     }else{
       return (
@@ -98,7 +52,7 @@ const fetchProphetPredict = (data) => {
             <LineChart
               width={500}
               height={200}
-              data={[].concat(data,predictedData)}
+              data={data}
               margin={{
                 top: 5,
                 right: 30,
@@ -121,8 +75,6 @@ const fetchProphetPredict = (data) => {
               <Legend />
               <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
               <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" strokeWidth={3} activeDot={{ r: 8 }}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
