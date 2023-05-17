@@ -117,7 +117,11 @@ function PredictionChart(props){
       return(<div>Loading</div>)
     }else{
       if(data.length < 10){
-        return(<div>Not enough samples for predicting data</div>)
+        return(
+        <div className='emptyCard'>
+          <p>Not enough samples for predicting data using {algs.find(el => el.id === props.prediction_type).name} model!</p>
+        </div>
+        )
       }else{
         return (
           <div className="card">

@@ -7,3 +7,24 @@
     text-align: center;
     font-size:18px;
 }
+
+.emptyCard{
+    color:white;
+    background-color: #012A4A !important;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 12px !important;
+    text-align: center;
+    font-size:16px;
+    min-height: 200px;
+    position: relative;
+}
+
+.emptyCard p {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
