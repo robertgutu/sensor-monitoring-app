@@ -14,6 +14,10 @@ const algs = [
   {
     "id": 2,
     "name": "Prophet"
+  },
+  {
+    "id": 3,
+    "name": "ARIMA"
   }
 ]
 
@@ -46,10 +50,14 @@ function PredictionChart(props){
       //console.log("Measured and filtered data",filtered_data)
       setData(filtered_data)
 
-      if(props.prediction_type === 1){
-        getLinearRegresionPredict(filtered_data)
-      }else if(props.prediction_type === 2){
-        getProphetPredict(filtered_data)
+      if(filtered_data.length >= 10){
+        if(props.prediction_type === 1){
+          getLinearRegresionPredict(filtered_data)
+        }else if(props.prediction_type === 2){
+          getProphetPredict(filtered_data)
+        }else if(props.prediction_type === 3){
+          getARIMAPredict(filtered_data)
+        }
       }
 
       setIsDataReceived(true)
@@ -57,6 +65,21 @@ function PredictionChart(props){
     }
 
   },[props.measured_data,props.node])
+
+  const getARIMAPredict = (data) => {
+    api.post(`predict_arima`,data)
+    .then(res => {
+        console.log("Response for ARIMA prediction",res);
+        setPredictedData(res.data)
+        
+    })
+    .catch(err => {
+        console.error(err)
+    })
+    .finally(() =>{
+      setIsPredictedDataLoaded(true)
+    })
+  } 
 
 
   const getLinearRegresionPredict = (data) => {
@@ -93,46 +116,51 @@ function PredictionChart(props){
     if(!isPredictedDataLoaded){
       return(<div>Loading</div>)
     }else{
-      return (
-        <div className="card">
-        <div className="card-header chart-header">
-          {/* {props.node.name}(ID:{props.node.id})  */}Algorithm used: {algs.find(el => el.id === props.prediction_type).name}
+      if(data.length < 10){
+        return(<div>Not enough samples for predicting data</div>)
+      }else{
+        return (
+          <div className="card">
+          <div className="card-header chart-header">
+            {/* {props.node.name}(ID:{props.node.id})  */}Algorithm used: {algs.find(el => el.id === props.prediction_type).name}
+          </div>
+          <div className="card-body chart-content">
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart
+                width={500}
+                height={200}
+                data={[].concat(data,predictedData)}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis 
+                  type="number" 
+                  dataKey="timestamp" 
+                  tickFormatter={formatXAxis} 
+                  stroke='white'
+                  domain={['dataMin', 'dataMax']}
+                />
+                <YAxis stroke='white'/>
+                <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}
+                  contentStyle={{backgroundColor: '#014F86',fontSize: "16px"}}
+                />
+                <Legend />
+                <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" strokeWidth={3} activeDot={{ r: 8 }}/>
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-        <div className="card-body chart-content">
-          <ResponsiveContainer width="100%" height={200}>
-            <LineChart
-              width={500}
-              height={200}
-              data={[].concat(data,predictedData)}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis 
-                type="number" 
-                dataKey="timestamp" 
-                tickFormatter={formatXAxis} 
-                stroke='white'
-                domain={['dataMin', 'dataMax']}
-              />
-              <YAxis stroke='white'/>
-              <Tooltip labelFormatter={(label) => moment(label).format("DD/MM/YY HH:mm:ss")}
-                contentStyle={{backgroundColor: '#014F86',fontSize: "16px"}}
-              />
-              <Legend />
-              <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" strokeWidth={3} activeDot={{ r: 8 }}/>
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-      )
+        )
+      }
+      
     }
 }
 export default PredictionChart;

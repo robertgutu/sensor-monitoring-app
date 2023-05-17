@@ -78,11 +78,14 @@ function Predictions(){
                                     
                                 </div>
                                 <div key={node.id} className="row custom-row underlineCustom">
-                                    <div className="col-12 col-xl-6">
+                                    <div className="col-12 col-xl-4">
                                         <PredictionChart measured_data={measuredData.filter(el => el.node_id === node.id)} node={node} prediction_type={1}/>
                                     </div>
-                                    <div className="col-12 col-xl-6">
+                                    <div className="col-12 col-xl-4">
                                         <PredictionChart measured_data={measuredData.filter(el => el.node_id === node.id)} node={node} prediction_type={2}/>
+                                    </div>
+                                    <div className="col-12 col-xl-4">
+                                        <PredictionChart measured_data={measuredData.filter(el => el.node_id === node.id)} node={node} prediction_type={3}/>
                                     </div>
                                 </div>
                                 </>
