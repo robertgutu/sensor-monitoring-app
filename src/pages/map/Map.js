@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import "./Map.css"
 import { rtdb } from '../../firebase-config'
 import {ref, get, child} from 'firebase/database';
+import { Loader } from '../../components/Loading/Loading';
 
 const dummyData=[
     {
@@ -50,7 +51,7 @@ function Home(){
     return(
     <div>
         {!isLoaded ?
-        <div>loading</div>
+        <Loader />
         :
         <MapContainer center={[`${sensors[0].lat}`, `${sensors[0].lon}`]} zoom={13} scrollWheelZoom={true}>
             <TileLayer

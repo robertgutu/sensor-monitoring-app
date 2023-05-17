@@ -5,6 +5,7 @@ import {ref, set, get, child} from 'firebase/database';
 import './AddNodes.css'
 import { errAlert } from '../../components/Alerts/Alerts';
 import { ToastContainer} from 'react-toastify';
+import { Loader } from '../../components/Loading/Loading';
 
 function AddNodes(){
 
@@ -146,7 +147,7 @@ function AddNodes(){
         }
     }else{
         return(
-            <div>Loading</div>
+            <Loader />
         )
     }
     

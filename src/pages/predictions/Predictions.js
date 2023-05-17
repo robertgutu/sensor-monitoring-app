@@ -5,6 +5,7 @@ import { collection,getDocs } from 'firebase/firestore';
 import {ref, onValue, get, child} from 'firebase/database';
 import PredictionChart from '../../components/chart/PredictionChart';
 import './Predictions.css'
+import { Loader } from '../../components/Loading/Loading';
 
 function Predictions(){
 
@@ -98,7 +99,7 @@ function Predictions(){
         }
     }else{
         return(
-            <div>Loading</div>
+            <Loader />
         )
     }
     

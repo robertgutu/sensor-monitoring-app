@@ -7,6 +7,7 @@ import {ref, onValue} from 'firebase/database'
 import SensorWidget from "../../components/sensor_details/SensorWidget.js";
 import axios from 'axios';
 import NodeDetails from "../../components/nodeDetails/NodeDetails";
+import { Loader } from "../../components/Loading/Loading";
 
 function Home(){
 
@@ -86,7 +87,7 @@ function Home(){
             )
     }else{
         return(
-            <div>Loading</div>
+            <Loader/>
         )
     }
     
