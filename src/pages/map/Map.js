@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import "./Map.css"
-import { db } from '../../firebase-config'
-import { collection,getDocs } from 'firebase/firestore'
+import { rtdb } from '../../firebase-config'
+import {ref, get, child} from 'firebase/database';
 
 const dummyData=[
     {
@@ -25,24 +25,27 @@ function Home(){
     const [isLoaded, setIsLoaded] = useState(false)
 
     const [sensors, setSensors] = useState([]);
-    const sensorsReference = collection(db,"sensors");
 
     useEffect(() => {
-
-        const fetchSensors = async () => {
-            const data = await getDocs(sensorsReference)
-            .then((data) => {
-                setSensors(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
-                setIsLoaded(true)
-            })
-            /* console.log("data",data) */
-            
-        }
-
-        fetchSensors()
-        
-        
+        fetchNodes()
     },[]);
+
+    const fetchNodes= async () => {
+        const dbRef = ref(rtdb, '/');
+        get(child(dbRef, `/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const temp_nodes = Object.values(snapshot.val())
+                console.log("nodes",temp_nodes);
+                setSensors(temp_nodes)
+            } else {
+                console.log("No data available");
+            }
+        }).catch((err) => {
+            console.error(err);
+        }).finally(() => {
+            setIsLoaded(true)
+        })
+    }
 
     return(
     <div>
@@ -61,7 +64,7 @@ function Home(){
                     <Popup>
                         <p><strong>Latitudine:</strong> {sensor.lat}</p>
                         <p><strong>Longitudine:</strong> {sensor.lon}</p>
-                        <p><strong>Descriere:</strong> {sensor.description}</p>
+                        <p><strong>Descriere:</strong> {sensor.desc}</p>
                     </Popup>
                 </Marker>  
                 )
