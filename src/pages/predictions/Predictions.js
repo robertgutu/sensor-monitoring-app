@@ -1,5 +1,5 @@
 
-import {useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import { db, rtdb } from '../../firebase-config';
 import { collection,getDocs } from 'firebase/firestore';
 import {ref, onValue, get, child} from 'firebase/database';
@@ -71,14 +71,14 @@ function Predictions(){
                     
                         {nodes.map( node => {
                             return(
-                                <>
+                                <React.Fragment key={node.id}>
                                 <div>
                                     <div className="nodeTitle">
                                         {node.name}-ID:{node.id} (Latitude: {node.lat}, Longitude: {node.lon})  
                                     </div>
                                     
                                 </div>
-                                <div key={node.id} className="row custom-row underlineCustom">
+                                <div className="row custom-row underlineCustom">
                                     <div className="col-12 col-xl-4">
                                         <PredictionChart measured_data={measuredData.filter(el => el.node_id === node.id)} node={node} prediction_type={1}/>
                                     </div>
@@ -89,8 +89,7 @@ function Predictions(){
                                         <PredictionChart measured_data={measuredData.filter(el => el.node_id === node.id)} node={node} prediction_type={3}/>
                                     </div>
                                 </div>
-                                </>
-                                
+                                </React.Fragment >
                             )
                         })}
                     
