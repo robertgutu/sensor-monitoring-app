@@ -154,6 +154,8 @@ function PredictionChart(props){
                   contentStyle={{backgroundColor: '#014F86',fontSize: "16px"}}
                 />
                 <Legend />
+                <Brush height={20}
+                /* dataKey="timestamp" tickFormatter={tickFormat => moment(tickFormat).format('DD MMM HH:mm')} *//>
                 <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
                 <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>

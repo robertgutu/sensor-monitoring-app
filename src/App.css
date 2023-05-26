@@ -27,3 +27,14 @@
 .underlineCustom{
     border-bottom: 5px solid #012A4A ;
 }
+
+.recharts-brush-slide{
+    fill: #014F86 !important;
+    fill-opacity: 1 !important;
+}
+
+
+/* .recharts-brush{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+} */
