@@ -6,8 +6,23 @@
 .custom-row{
     padding-bottom:20px;
     margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
 .containerCustom{
     padding: 20px;
 }
+
+
+
+@media (max-width: 1200px) {
+    .chartCol{
+        margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .widgetCol{
+        margin-top: 20px;
+    }
+  }

@@ -28,6 +28,10 @@
     border-bottom: 5px solid #012A4A ;
 }
 
+.underlineCustom:last-of-type{
+    border-bottom: 0px;
+}
+
 .recharts-brush-slide{
     fill: #014F86 !important;
     fill-opacity: 1 !important;

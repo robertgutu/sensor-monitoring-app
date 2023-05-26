@@ -1,37 +1,41 @@
 import {useState, useEffect} from 'react';
 import GaugeChart from 'react-gauge-chart'
 import './SensorWidget.css'
+import { rtdb } from '../../firebase-config';
+import {ref, onValue} from 'firebase/database';
 
 function SensorWidget(props){
 
-    const [nodeName,setNodeName] = useState('');
-    const [temp,setTemp] = useState(0);
-    const [hum,setHum] = useState(0);
+    const [node,setNode] = useState('');
+    const [isNodeLoaded,setIsNodeLoaded] = useState(false)
 
-    useEffect(() => {
-        setNodeName(props.data.name)
-    },[props.data.name ])
 
     useEffect(() => {
 
-        if(props.data.temperature && props.data.temperature !== temp){
-            setTemp(props.data.temperature)
-        }
+        console.log("node id:", props.node_id)
+        fetchRTData(props.node_id)
 
-    },[props.data.temperature])
+    },[props.node_id])
 
-    useEffect(() => {
+    const fetchRTData = async (curr_node_id) => {
+        const rt_data_ref = await ref(rtdb,"/")
+        onValue(rt_data_ref, (snapshot) => {
+            const rt_data = snapshot.val();
+            const current_node = Object.values(rt_data).find(el => el.id ===curr_node_id)
+            console.log("current_node",current_node);
+            setNode(current_node)
+            setIsNodeLoaded(true)
+            //setRealtimeData(Object.values(rt_data));
+            //setIsRealtimeDataLoaded(true)
+        }) 
+    };
 
-        if(props.data.humidity && props.data.humidity !== hum){
-            setHum(props.data.humidity)
-        }
 
-    },[props.humidity])
 
     return(
         <div className="card widget-card">
             <div className="card-header widget-header">
-                Realtime values for {nodeName}
+                Realtime values for {node.name}
             </div>
             <div className="card-body widget-content">
                 <div className="row">
@@ -39,7 +43,7 @@ function SensorWidget(props){
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={3} 
                         formatTextValue={value => value+' C'}
-                        percent={temp/100} 
+                        percent={node.temperature ? node.temperature/100 : 0} 
                         animate={false}
                         />
                         <p className="meter-name">Temperature</p>
@@ -48,7 +52,7 @@ function SensorWidget(props){
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={20} 
                         formatTextValue={value => value+' %'}
-                        percent={hum/100} 
+                        percent={node.humidity ? node.humidity/100 : 0} 
                         animate={false}
                         />
                         <p className="meter-name">Humidity</p>
@@ -57,7 +61,7 @@ function SensorWidget(props){
                         <GaugeChart className="widget-meter" id="gauge-chart2" 
                         nrOfLevels={20} 
                         formatTextValue={value => value+' %'}
-                        percent={hum/100} 
+                        percent={node.air_quality ? node.air_quality/100 : 0} 
                         animate={false}
                         />
                         <p className="meter-name">Air</p>

@@ -3,7 +3,7 @@ import Chart from '../../components/chart/Chart.js';
 import {useState, useEffect} from 'react';
 import { db, rtdb } from '../../firebase-config';
 import { collection,getDocs } from 'firebase/firestore';
-import {ref, onValue} from 'firebase/database'
+import {ref, onValue, get, child} from 'firebase/database'
 import SensorWidget from "../../components/sensor_details/SensorWidget.js";
 import axios from 'axios';
 import NodeDetails from "../../components/nodeDetails/NodeDetails";
@@ -11,11 +11,13 @@ import { Loader } from "../../components/Loading/Loading";
 
 function Home(){
 
+    const [nodes, setNodes] = useState([]);
     const [sensors, setSensors] = useState([]);
     const sensorsReference = collection(db,"sensors");
     const measurementsReference = collection(db,"measurements");
     //const measurementsReference = collection(db,"measured_values");
     const [sensorsLoaded, setSensorsLoaded] = useState(false)
+    const [isNodesLoaded,setIsNodesLoaded] = useState(false)
     const [measuredData,setMeasuredData] = useState()
     const [testData,setTestData] = useState()
     const [realtimeData, setRealtimeData] = useState([]);
@@ -57,26 +59,43 @@ function Home(){
         
     }
 
+    const fetchNodes = () => {
+        const dbRef = ref(rtdb, '/');
+        get(child(dbRef, `/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const temp_nodes = Object.values(snapshot.val())
+                //console.log("nodes",temp_nodes);
+                setNodes(temp_nodes)
+            } else {
+                console.log("No data available");
+            }
+        }).catch((err) => {
+            console.error(err);
+        }).finally(() => {
+            setIsNodesLoaded(true)
+        })
+    }
+
     useEffect(() => {
-        fetchRTData()
         fetchMeasurements()
+        fetchNodes()
     },[])
 
-    if(isDataLoaded && isRealtimeDataLoaded){
+    if(isDataLoaded && isNodesLoaded){
         return(
             <div className="containerCustom">
                 
-                    {realtimeData.map( node => {
+                    {nodes.map( node => {
                         return(
                             <div key={node.id} className="row custom-row underlineCustom">
-                                <div className="col-4 col-xl-2">
+                                <div className="col-12 col-md-4 col-xl-2">
                                     <NodeDetails node={node}/>
                                 </div>
-                                <div className="col-8 col-xl-4">
-                                    <SensorWidget data={node}/>
+                                <div className="col-12 col-md-8 col-xl-4 widgetCol">
+                                    <SensorWidget data={node} node_id={node.id}/>
                             
                                 </div>
-                                <div className="col-12 col-xl-6">
+                                <div className="col-12 col-md-12 col-xl-6 chartCol">
                                     <Chart measured_data={measuredData} node={node} />
                                 </div>
                             </div>
