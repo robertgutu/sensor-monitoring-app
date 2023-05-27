@@ -156,10 +156,12 @@ function PredictionChart(props){
                 <Legend />
                 <Brush height={20}
                 /* dataKey="timestamp" tickFormatter={tickFormat => moment(tickFormat).format('DD MMM HH:mm')} *//>
-                <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
-                <Line type="monotone" dataKey="predicted_humidity" stroke="green" strokeWidth={3} activeDot={{ r: 8 }}/>
-                <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="humidity" stroke="#e85d04" unit="%RH" strokeWidth={3} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="temperature" stroke="#ffd60a" unit="℃" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="co2" stroke="#c1121f" unit="ppm/10" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="predicted_humidity" stroke="green" unit="%RH" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="predicted_temperature" stroke="#ef476f" unit="℃" strokeWidth={3} activeDot={{ r: 8 }}/>
+                <Line type="monotone" dataKey="predicted_co2" stroke="#3a86ff" unit="ppm/10" strokeWidth={3} activeDot={{ r: 8 }}/>
               </LineChart>
             </ResponsiveContainer>
           </div>

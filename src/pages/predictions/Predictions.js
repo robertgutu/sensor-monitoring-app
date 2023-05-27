@@ -22,6 +22,7 @@ function Predictions(){
             const temp_data = data.docs.map((doc) => ({...doc.data(), id: doc.id}))
             temp_data.map(el => {
                 el.timestamp = parseInt(el.timestamp)*1000;
+                el.co2 = el.air_quality/10;
               }) 
             temp_data.sort(((a,b) => a.timestamp - b.timestamp))
 
