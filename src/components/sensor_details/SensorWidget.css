@@ -35,3 +35,15 @@
     color:white;
     font-size:medium !important;
 }
+
+.speedometer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .speedometer {
+    flex: 1;
+    margin-left:5px;
+    margin-right: 5px;
+    font-size: small;
+  }

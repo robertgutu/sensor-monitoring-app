@@ -3,6 +3,7 @@ import GaugeChart from 'react-gauge-chart'
 import './SensorWidget.css'
 import { rtdb } from '../../firebase-config';
 import {ref, onValue} from 'firebase/database';
+import ReactSpeedometer from "react-d3-speedometer";
 
 function SensorWidget(props){
 
@@ -32,45 +33,60 @@ function SensorWidget(props){
 
 
 
-    return(
+    return (
         <div className="card widget-card">
-            <div className="card-header widget-header">
-                Realtime values for {node.name}
+          <div className="card-header widget-header">
+            Realtime values for {node.name}
+          </div>
+          <div className="card-body widget-content">
+            <div className="speedometer-container">
+              <div className="speedometer">
+                <ReactSpeedometer
+                    textColor={"white"}
+                    minValue={0}
+                    maxValue={40}
+                    customSegmentStops={[0, 20, 30,40]}
+                    segmentColors={["limegreen", "gold", "tomato"]}
+                    value={node.temperature ? node.temperature : 0}
+                    currentValueText={`Temperature: ${node.temperature ? node.temperature : 0} ℃`}
+                    fluidWidth={true}
+                    dimensionUnit={"%"}
+                    height={100}
+                    width={33}
+                />
+              </div>
+              <div className="speedometer">
+                <ReactSpeedometer
+                    textColor={"white"}
+                    minValue={0}
+                    maxValue={100}
+                    customSegmentStops={[0, 20, 30, 70 ,80 ,100]}
+                    segmentColors={["tomato", "gold", "limegreen","gold", "tomato"]}
+                    value={node.humidity ? node.humidity : 0}
+                    currentValueText={`Humidity: ${node.humidity ? node.humidity : 0}%`}
+                    fluidWidth={true}
+                    dimensionUnit={"%"}
+                    height={100}
+                    width={33}
+                />
+              </div>
+              <div className="speedometer">
+                <ReactSpeedometer
+                    textColor={"white"}
+                    customSegmentStops={[0, 400, 550, 1000]}
+                    segmentColors={["limegreen", "gold","tomato" ]}
+                    value={node.air_quality ? node.air_quality : 0}
+                    currentValueText={`CO2 level: ${node.air_quality ? node.air_quality : 0}ppm`}
+                    fluidWidth={true}
+                    dimensionUnit={"%"}
+                    height={100}
+                    width={33}
+                />
+              </div>
             </div>
-            <div className="card-body widget-content">
-                <div className="row">
-                    <div className="col-4 meterCol">
-                        <GaugeChart className="widget-meter" id="gauge-chart2" 
-                        nrOfLevels={3} 
-                        formatTextValue={value => value+' C'}
-                        percent={node.temperature ? node.temperature/100 : 0} 
-                        animate={false}
-                        />
-                        <p className="meter-name">Temperature</p>
-                    </div>
-                    <div className="col-4 meterCol">
-                        <GaugeChart className="widget-meter" id="gauge-chart2" 
-                        nrOfLevels={20} 
-                        formatTextValue={value => value+' %'}
-                        percent={node.humidity ? node.humidity/100 : 0} 
-                        animate={false}
-                        />
-                        <p className="meter-name">Humidity</p>
-                    </div>
-                    <div className="col-4 meterCol">
-                        <GaugeChart className="widget-meter" id="gauge-chart2" 
-                        nrOfLevels={20} 
-                        formatTextValue={value => value+' %'}
-                        percent={node.air_quality ? node.air_quality/100 : 0} 
-                        animate={false}
-                        />
-                        <p className="meter-name">Air</p>
-                    </div>
-                </div>
-                
-            </div>
+          </div>
         </div>
-    )
+      );
 
     /* return(
         <div className="card widget-card">
