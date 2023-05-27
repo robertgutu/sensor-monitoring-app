@@ -48,7 +48,7 @@ function Chart(props){
           Measured values for {props.node.name} (ID:{props.node.id})
         </div>
         <div className="card-body chart-content">
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={160}>
             <LineChart
               width={500}
               height={200}

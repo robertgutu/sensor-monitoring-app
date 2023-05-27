@@ -4,12 +4,12 @@ import './SensorWidget.css'
 import { rtdb } from '../../firebase-config';
 import {ref, onValue} from 'firebase/database';
 import ReactSpeedometer from "react-d3-speedometer";
-
+import moment from "moment";
 function SensorWidget(props){
 
     const [node,setNode] = useState('');
     const [isNodeLoaded,setIsNodeLoaded] = useState(false)
-
+    const [lastUpdatedDate, setLastUpdatedDate] = useState(new Date())
 
     useEffect(() => {
 
@@ -26,6 +26,7 @@ function SensorWidget(props){
             console.log("current_node",current_node);
             setNode(current_node)
             setIsNodeLoaded(true)
+            setLastUpdatedDate(new Date)
             //setRealtimeData(Object.values(rt_data));
             //setIsRealtimeDataLoaded(true)
         }) 
@@ -43,6 +44,8 @@ function SensorWidget(props){
               <div className="speedometer">
                 <ReactSpeedometer
                     textColor={"white"}
+                    valueTextFontWeight={"normal"}
+                    labelFontSize='14px'
                     minValue={0}
                     maxValue={40}
                     customSegmentStops={[0, 20, 30,40]}
@@ -52,12 +55,14 @@ function SensorWidget(props){
                     fluidWidth={true}
                     dimensionUnit={"%"}
                     height={100}
-                    width={33}
+                    width={32}
                 />
               </div>
               <div className="speedometer">
                 <ReactSpeedometer
                     textColor={"white"}
+                    valueTextFontWeight={"normal"}
+                    labelFontSize='14px'
                     minValue={0}
                     maxValue={100}
                     customSegmentStops={[0, 20, 30, 70 ,80 ,100]}
@@ -67,12 +72,14 @@ function SensorWidget(props){
                     fluidWidth={true}
                     dimensionUnit={"%"}
                     height={100}
-                    width={33}
+                    width={32}
                 />
               </div>
               <div className="speedometer">
                 <ReactSpeedometer
                     textColor={"white"}
+                    valueTextFontWeight={"normal"}
+                    labelFontSize='14px'
                     customSegmentStops={[0, 400, 550, 1000]}
                     segmentColors={["limegreen", "gold","tomato" ]}
                     value={node.air_quality ? node.air_quality : 0}
@@ -80,43 +87,13 @@ function SensorWidget(props){
                     fluidWidth={true}
                     dimensionUnit={"%"}
                     height={100}
-                    width={33}
+                    width={32}
                 />
               </div>
             </div>
+            <div className="float-end lastUpdate">Last time updated {moment(lastUpdatedDate).format("DD/MM/YY HH:mm:ss")}</div>
           </div>
         </div>
       );
-
-    /* return(
-        <div className="card widget-card">
-            <div className="card-header widget-header">
-                REALTIME VALUES FOR NODE {nodeID}
-            </div>
-            <div className="card-body widget-content">
-                <div className="row">
-                    <div className="col-6 meterCol">
-                        <GaugeChart className="widget-meter" id="gauge-chart2" 
-                        nrOfLevels={3} 
-                        formatTextValue={value => value+' C'}
-                        percent={temp/100} 
-                        animate={false}
-                        />
-                        <p className="meter-name">Temperature</p>
-                    </div>
-                    <div className="col-6 meterCol">
-                        <GaugeChart className="widget-meter" id="gauge-chart2" 
-                        nrOfLevels={20} 
-                        formatTextValue={value => value+' %'}
-                        percent={hum/100} 
-                        animate={false}
-                        />
-                        <p className="meter-name">Humidity</p>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    ) */
 }
 export default SensorWidget;
