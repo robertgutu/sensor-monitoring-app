@@ -23,6 +23,7 @@ function Chart(props){
       
       filtered_data.map(el => {
         el.timestamp = parseInt(el.timestamp)*1000;
+        el.co2 = el.air_quality / 10
       })
       
       //console.log("filtered_data",filtered_data)
@@ -75,6 +76,7 @@ function Chart(props){
               <Legend />
               <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
               <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
+              <Line type="monotone" dataKey="co2" unit=" ppm/10" stroke="#ffdffa" strokeWidth={3} activeDot={{ r: 8 }}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
