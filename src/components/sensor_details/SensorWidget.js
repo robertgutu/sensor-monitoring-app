@@ -68,7 +68,7 @@ function SensorWidget(props){
                     customSegmentStops={[0, 20, 30, 70 ,80 ,100]}
                     segmentColors={["tomato", "gold", "limegreen","gold", "tomato"]}
                     value={node.humidity ? node.humidity : 0}
-                    currentValueText={`Humidity: ${node.humidity ? node.humidity : 0}%`}
+                    currentValueText={`Humidity: ${node.humidity ? node.humidity : 0}%RH`}
                     fluidWidth={true}
                     dimensionUnit={"%"}
                     height={100}

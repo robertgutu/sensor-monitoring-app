@@ -74,9 +74,9 @@ function Chart(props){
                 contentStyle={{backgroundColor: '#014F86',fontSize: "16px"}}
               />
               <Legend />
-              <Line type="monotone" dataKey="humidity" stroke="#e85d04" strokeWidth={3} activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="temperature" stroke="#ffd60a" strokeWidth={3} activeDot={{ r: 8 }}/>
-              <Line type="monotone" dataKey="co2" unit=" ppm/10" stroke="#ffdffa" strokeWidth={3} activeDot={{ r: 8 }}/>
+              <Line type="monotone" dataKey="humidity" stroke="#e85d04" unit={" %RH"} strokeWidth={3} activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="temperature" stroke="#ffd60a" unit={" ℃"} strokeWidth={3} activeDot={{ r: 8 }}/>
+              <Line type="monotone" dataKey="co2" unit=" ppm/10" stroke="#f28482" strokeWidth={3} activeDot={{ r: 8 }}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
